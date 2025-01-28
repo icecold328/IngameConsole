@@ -2,7 +2,7 @@ Example of Using Console in Scripting.
 
 ![image](https://github.com/user-attachments/assets/cf3b9b78-a557-411b-a281-ac2ad361ea23)
 
-Console Inside Editor.
+Console Inside Editor with message passthough to editor.
 
 ![image](https://github.com/user-attachments/assets/7b2349fb-744a-4a32-8830-b9dc3d2f73be)
 
@@ -18,3 +18,4 @@ Settings file with Information for setup, adding data to Game.Build.cs
 
 ![image](https://github.com/user-attachments/assets/6fc7f359-1e40-436b-a4e8-35ad4a237454)
 
+![image](https://github.com/user-attachments/assets/74cc2c80-a21d-4bdd-95c9-c636831dd15b)
