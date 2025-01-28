@@ -1,6 +1,5 @@
 using FlaxEditor;
 using FlaxEditor.Content;
-using System.Runtime;
 
 namespace IngameConsole;
 

@@ -24,7 +24,9 @@ public class Console
     public static void WriteLine(string s)
     {
         if (i is not null) { i.DisplayMessage(s, Color.White); }
+#if FLAX_EDITOR
         Debug.Log(s);
+#endif
     }
 
     /// <summary>
@@ -98,13 +100,10 @@ public class Console
             _cts = new CancellationTokenSource();
             WaitingTask = Task.Run(async () =>
             {
-                Debug.Log("[Console] Waiting for RootControl to setup GameRoot");
-
                 while (RootControl.GameRoot is null)
                 {
                     if (_cts.IsCancellationRequested)
-                    {
-                        Debug.Log("[Console] RootControl Waiting, Cancled");
+                    {                        
                         return;
                     }
 
@@ -175,7 +174,10 @@ public class Console
         _pan.IsScrollable = true;
         _pan.VScrollBar.IsScrollable = true;
 
-        Debug.Log("[Console] Console Initalized");
+#if FLAX_EDITOR
+        Debug.Log("Ingame Console Initalized");
+#endif
+
     }
 
     /// <summary>
@@ -369,6 +371,8 @@ public class Console
         if (i is not null)
             i = null; // Clear the singleton instance
 
-        Debug.Log("[Console] Console Disposed");
+#if FLAX_EDITOR
+        Debug.Log("Ingame Console Disposed");
+#endif
     }
 }

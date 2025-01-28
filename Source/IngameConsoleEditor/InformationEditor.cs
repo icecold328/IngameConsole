@@ -5,7 +5,6 @@ using FlaxEngine;
 using IngameConsole;
 
 #if FLAX_EDITOR
-
 /// <summary>
 /// Information Display in Settings File.
 /// </summary>

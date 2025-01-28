@@ -25,7 +25,7 @@ public class IGC : GamePlugin
             Author = "IceCold",
             AuthorUrl = null,
             HomepageUrl = null,
-            RepositoryUrl = "",
+            RepositoryUrl = "https://github.com/icecold328/IngameConsole",
             Description = "Ingame Console.",
             Version = new Version(1, 0, 0),
             IsAlpha = false,
@@ -42,17 +42,16 @@ public class IGC : GamePlugin
 
         if (SettingsJson == null)
         {
+#if FLAX_EDITOR
             Debug.LogError("Missing Console settings, Check GameSettings File");
+#endif
             return;
         }
         _cSettings = SettingsJson.CreateInstance<ConsoleSettings>();
-        Debug.Log("[IGC] Loaded Console Settings");
-
+        
         Scripting.Update += Scripting_Update;        
 
         Con = new Console(_cSettings);
-
-        Debug.Log("[IGC] Ingame Console Initalized");
     }    
 
     private void Scripting_Update()
@@ -70,7 +69,10 @@ public class IGC : GamePlugin
 
         Con?.Dispose();
 
-        Debug.Log("[IGC] Ingame Console Deinitalized");
+#if FLAX_EDITOR
+        Debug.Log("Ingame Console Deinitalized");
+#endif
+
         base.Deinitialize();
     }
 }
