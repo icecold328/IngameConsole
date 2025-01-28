@@ -14,9 +14,9 @@ Console settings file Creation.
 
 ![image](https://github.com/user-attachments/assets/c4e9a5c2-6bab-4741-97d8-4a20517496a0)
 
-Settings file with Information for setup, adding data to Game.Build.cs 
+Settings file with Information for setup, adding data to (Project Name).Build.cs 
 
-![image](https://github.com/user-attachments/assets/6fc7f359-1e40-436b-a4e8-35ad4a237454)
+![image](https://github.com/user-attachments/assets/93c2d03d-60e5-4a3f-8acb-b75462b2fe75)
 
 Add to (ProjectName).Build.cs
 
