@@ -18,4 +18,6 @@ Settings file with Information for setup, adding data to Game.Build.cs
 
 ![image](https://github.com/user-attachments/assets/6fc7f359-1e40-436b-a4e8-35ad4a237454)
 
+Add to (ProjectName).Build.cs
+
 ![image](https://github.com/user-attachments/assets/74cc2c80-a21d-4bdd-95c9-c636831dd15b)
