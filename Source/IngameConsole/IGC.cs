@@ -1,8 +1,5 @@
-using FlaxEditor;
-using FlaxEditor.Content;
-using FlaxEngine;
 using System;
-using System.Runtime;
+using FlaxEngine;
 
 namespace IngameConsole;
 
@@ -29,8 +26,8 @@ public class IGC : GamePlugin
             Description = "Ingame Console.",
             Version = new Version(1, 0, 0),
             IsAlpha = false,
-            IsBeta = false,
-        };
+            IsBeta = false,            
+        };        
     }    
 
     /// <inheritdoc />
