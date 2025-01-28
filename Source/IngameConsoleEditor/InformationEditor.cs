@@ -20,11 +20,10 @@ public class InformationEditor : GenericEditor
         var textbox = layout.TextBox(false);
         textbox.TextBox.IsReadOnly = true;
         textbox.Text = "options.PrivateDependencies.Add(\"IngameConsole\");";
-        layout.Label(" once added to Game.Build.cs click File>Generate Script Project Files");
+        layout.Label(" once added to (Proejct Name).Build.cs, then click File -> Generate Script Project Files");
         layout.Label(" then open editor of choose and enjoy.");
         layout.Space(10);
         layout.Label("  [Settings]");
-
         base.Initialize(layout);
     }    
 }
