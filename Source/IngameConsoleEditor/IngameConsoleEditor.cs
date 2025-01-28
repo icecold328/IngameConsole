@@ -25,7 +25,7 @@ public class IngameConsoleEditor : EditorPlugin
             HomepageUrl = null,
             RepositoryUrl = "https://github.com/icecold328/IngameConsole",
             Description = "Ingame Console.",
-            Version = new Version(1, 0, 0),
+            Version = new Version(1, 0, 1),
             IsAlpha = false,
             IsBeta = false,
         };

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using FlaxEngine;
 using FlaxEngine.GUI;
 
-
 namespace IngameConsole;
 
 /// <summary>
@@ -16,7 +15,7 @@ public class Console
     /// <summary>
     /// Singleton instance of console.
     /// </summary>
-    public static Console i;
+    private static Console i;
 
     /// <summary>
     /// Writes a message to the in-game console and the editor console.
@@ -54,7 +53,6 @@ public class Console
 #endif
     }
 
-
     /// <summary>
     /// Delegate for user messages to pass out.
     /// </summary>    
@@ -65,24 +63,26 @@ public class Console
     public static event UserInputEvent TextInputEvent;
 
     /// <summary>
+    /// Returns True/False Depending on if the Console is being Displayed.
+    /// </summary>
+    public static bool IsConsoleOpen { get => i is null ? false : i._consoleOpen; } 
+
+    /// <summary>
     /// Commands to display when help is entered.
     /// </summary>
     public static string[] Commands;
 
-    private ConsoleSettings _settings; // Console configuration settings
 
-    // UI Components
+    private ConsoleSettings _settings; // Console configuration settings    
     private AlphaPanel _bdr; // Panel for the console background
     private VerticalPanel _topVP; // Panel for holding the input textbox
     private TextBox _tb; // Input textbox for console commands
     private Panel _pan; // Panel for displaying messages
     private VerticalPanel _vpInfo; // Panel for holding the message labels
-    private List<Label> labels = new List<Label>(); // List of message labels
-
-    private bool DisplayConsole = false; // Flag to track console visibility
-
+    private List<Label> _labels = new List<Label>(); // List of message labels    
     private CancellationTokenSource _cts;
-    private Task WaitingTask;
+    private Task _waitingTask;
+    private bool _consoleOpen = false;
 
     /// <summary>
     /// Initializes a new instance of the Console class with the specified settings.
@@ -99,7 +99,7 @@ public class Console
         if (RootControl.GameRoot is null)
         {
             _cts = new CancellationTokenSource();
-            WaitingTask = Task.Run(async () =>
+            _waitingTask = Task.Run(async () =>
             {
                 while (RootControl.GameRoot is null)
                 {
@@ -130,8 +130,8 @@ public class Console
             BackgroundColor = _settings.ConsoleBackgroundColor,
         };
 
-        _bdr.Enabled = DisplayConsole; // Set initial visibility
-        _bdr.Visible = DisplayConsole;
+        _bdr.Enabled = _consoleOpen; // Set initial visibility
+        _bdr.Visible = _consoleOpen;        
 
         // Create the top vertical panel for the input textbox
         _topVP = new VerticalPanel()
@@ -244,7 +244,7 @@ public class Console
                 _displayTime = _settings.DisplayTimeData; // Set flag based on settings
 
             // Create a new label for each line and configure its properties
-            labels.Add(new Label()
+            _labels.Add(new Label()
             {
                 Parent = _vpInfo,
                 Text = _displayTime ? $"[{DateTime.Now.ToString("HH:mm:ss")}] {lines[i]}" : lines[i],
@@ -259,13 +259,13 @@ public class Console
         }
 
         // Remove the oldest message if the limit is reached
-        int Over = labels.Count - _settings.MaxMessages;
+        int Over = _labels.Count - _settings.MaxMessages;
         if (Over > 0)
         {
             for (int i = 0; i < Over; i++)
             {
-                labels[0].Dispose(); // Dispose the oldest label
-                labels.RemoveAt(0); // Remove it from the list
+                _labels[0].Dispose(); // Dispose the oldest label
+                _labels.RemoveAt(0); // Remove it from the list
             }
         }
 
@@ -278,12 +278,12 @@ public class Console
     public void ClearMessages()
     {
         // Dispose and clear all message labels
-        for (int i = 0; i < labels.Count; i++)
+        for (int i = 0; i < _labels.Count; i++)
         {
-            labels[i].Dispose();
-            labels[i] = null;
+            _labels[i].Dispose();
+            _labels[i] = null;
         }
-        labels.Clear();
+        _labels.Clear();
     }
 
     /// <summary>
@@ -309,13 +309,13 @@ public class Console
     public void Update()
     {
         if (Input.GetKeyDown(_settings.ConsoleKey))
-        {
-            DisplayConsole = !DisplayConsole; // Toggle console visibility
-            _bdr.Enabled = DisplayConsole;
-            _bdr.Visible = DisplayConsole;
+        {            
+            _consoleOpen = !_consoleOpen;
+            _bdr.Enabled = _consoleOpen;
+            _bdr.Visible = _consoleOpen;
         }
 
-        if (DisplayConsole)
+        if (_consoleOpen)
         {
             // Update bounds for UI elements when the console is displayed
             _bdr.Bounds = new Rectangle(new Float2(5, 0), new Float2(Screen.Size.X - 10, Screen.Size.Y / 2));
@@ -335,21 +335,21 @@ public class Console
     /// </summary>
     public void Dispose()
     {
-        if (WaitingTask is not null)
-            if (!WaitingTask.IsCanceled)
+        if (_waitingTask is not null)
+            if (!_waitingTask.IsCanceled)
                 _cts.Cancel();
 
         // Dispose all message labels
-        for (int i = 0; i < labels.Count; i++)
+        for (int i = 0; i < _labels.Count; i++)
         {
-            labels[i].Dispose();
-            labels[i] = null;
+            _labels[i].Dispose();
+            _labels[i] = null;
         }
 
         _tb.TextBoxEditEnd -= OnTextBoxEditEnd; // Unsubscribe from the event
 
-        labels.Clear(); // Clear the labels list
-        labels = null; // Nullify the reference
+        _labels.Clear(); // Clear the labels list
+        _labels = null; // Nullify the reference
 
         // Dispose of UI components
         _vpInfo.Dispose();
