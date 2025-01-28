@@ -21,3 +21,9 @@ Settings file with Information for setup, adding data to (Project Name).Build.cs
 Add to (ProjectName).Build.cs
 
 ![image](https://github.com/user-attachments/assets/74cc2c80-a21d-4bdd-95c9-c636831dd15b)
+
+Example of Custom Command
+
+![image](https://github.com/user-attachments/assets/7996d334-1615-4966-8ebc-bd8ef7f03004)
+
+
