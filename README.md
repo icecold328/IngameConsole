@@ -1,6 +1,8 @@
 Example of Using Console in Scripting.
 
 ![image](https://github.com/user-attachments/assets/cf3b9b78-a557-411b-a281-ac2ad361ea23)
+![image](https://github.com/user-attachments/assets/40a2a8d2-1516-4eb0-880c-861e8620caa3)
+
 
 Console Inside Editor with message passthough to editor.
 
