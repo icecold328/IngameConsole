@@ -24,7 +24,7 @@ public class IGC : GamePlugin
             HomepageUrl = null,
             RepositoryUrl = "https://github.com/icecold328/IngameConsole",
             Description = "Ingame Console.",
-            Version = new Version(1, 0, 1),
+            Version = new Version(1, 0, 2),
             IsAlpha = false,
             IsBeta = false,            
         };        
